@@ -1,0 +1,23 @@
+.list-wrapper {
+  position: absolute;
+  z-index: 123;
+  width: 100%;
+  border: 1px solid #eee;
+  top: 70px;
+  margin: 0;
+}
+.list {
+  display: block;
+  position: relative;
+  z-index: 111;
+  cursor: pointer;
+  list-style: none;
+  line-height: 2em;
+  padding: 10px;
+}
+.list-item:hover {
+  background-color: #eee;
+}
+.list-item-highlight {
+  background-color: #ddd;
+}

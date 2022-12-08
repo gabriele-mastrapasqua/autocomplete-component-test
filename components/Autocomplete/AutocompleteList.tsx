@@ -1,5 +1,4 @@
-import {useEffect, useRef, useState, KeyboardEvent, FormEvent} from 'react'
-import {Entry} from '@/interfaces/Entry'
+import '@/components/Autocomplete/style.list.css'
 
 interface Props {
   index: number
@@ -10,17 +9,22 @@ interface Props {
 
 export const AutocompleteList = ({keyToShow = 'API', ...props}: Props) => {
   return (
-    <div className="autocomplete-list">
-      <ul>
+    <div className="list-wrapper">
+      <ul className="list">
         {props.items.map((item, index) => (
           <li
             key={index}
-            className={index === props.index ? 'highligth' : ''}
+            className={
+              (index === props.index ? 'list-item-highlight' : '') +
+              ' list-item '
+            }
             onClick={() => props.onClick(item)}
           >
             {item[keyToShow]}
           </li>
         ))}
+
+        {props.items.length === 0 && <span>no elements found!</span>}
       </ul>
     </div>
   )

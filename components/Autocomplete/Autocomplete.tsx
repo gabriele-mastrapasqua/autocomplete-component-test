@@ -1,7 +1,9 @@
-import {useEffect, useRef, useState, KeyboardEvent, FormEvent} from 'react'
+import '@/components/Autocomplete/style.css'
 import {Entry} from '@/interfaces/Entry'
 import {EntriesService} from '@/lib/services/EntriesService'
 import {mod} from '@/lib/utils'
+import {FormEvent, KeyboardEvent, useRef, useState} from 'react'
+import {AutocompleteInput} from './AutocompleteInput'
 import {AutocompleteList} from './AutocompleteList'
 
 interface Props {
@@ -19,29 +21,17 @@ export const Autocomplete = ({
 
   const [entries, setEntries] = useState<Entry[]>([])
   const [entryIndex, setEntryIndex] = useState<number>(0)
-
-  // mount
-  useEffect(() => {
-    const inputElement = inputRef.current
-    if (inputElement) {
-      // autofocus on input if loaded
-      inputElement.focus()
-
-      //inputElement.addEventListener("keydown", handleKeyDown);
-      //inputElement.addEventListener("input", handleInput);
-      return () => {
-        //inputElement.removeEventListener("keydown", handleKeyDown);
-        //inputElement.removeEventListener("input", handleInput);
-      }
-    }
-  }, [])
+  const [showList, setShowList] = useState<boolean>(false)
 
   // handle key down on input
   const onKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       event.preventDefault()
 
-      if (entries.length > 0) props.onObjectSelected(entries[entryIndex])
+      if (entries.length > 0) {
+        props.onObjectSelected(entries[entryIndex])
+        setShowList(false)
+      }
     }
     // handle arrow down for entry selection
     else if (event.key === 'ArrowDown') {
@@ -71,6 +61,7 @@ export const Autocomplete = ({
         inputRef?.current?.value,
         (responseData: any) => {
           console.log('*** response from api', responseData)
+          setShowList(true)
           setEntries(responseData.entries || []) // can be null on bad inputs
           if (responseData.entries && responseData.entries.length > 0) {
             setEntryIndex(0)
@@ -81,49 +72,47 @@ export const Autocomplete = ({
   }
 
   return (
-    <>
+    <div className="wrapper">
       {/** input text */}
-
-      <label htmlFor="search">{label}</label>
-      <input
-        ref={inputRef}
-        id="search"
-        type="text"
-        autoComplete="off"
-        placeholder="Input a minimum of 3 characters to search..."
+      <AutocompleteInput
+        inputref={inputRef}
+        className={
+          entries.length === 0 && inputRef.current?.value != ''
+            ? 'danger'
+            : 'primary'
+        }
+        label={label}
         disabled={disabled}
+        minLen={3}
+        autofocus={true}
         onKeyDown={onKeyDown}
         onInput={onInput}
-        {...props}
-      />
-
-      {inputRef &&
-        inputRef?.current &&
-        inputRef?.current?.value.length >= 3 &&
-        entries.length === 0 && (
-          <span className="error-message">No results found!</span>
-        )}
-
-      <button
-        className="autocomplete-cancel-input"
         onClick={() => {
-          if (inputRef?.current) {
-            inputRef.current.value = ''
-          }
+          setShowList(true)
+          inputRef?.current?.focus()
         }}
-      >
-        X
-      </button>
+        onClear={() => {
+          setShowList(false)
+          inputRef?.current?.focus()
+        }}
+      />
 
       {/** list results */}
-      <AutocompleteList
-        index={entryIndex}
-        items={entries}
-        keyToShow="API"
-        onClick={(entrySelected: Entry) =>
-          props.onObjectSelected(entrySelected)
-        }
-      />
-    </>
+      {inputRef &&
+        inputRef.current &&
+        inputRef.current.value !== '' &&
+        showList && (
+          <AutocompleteList
+            index={entryIndex}
+            items={entries}
+            keyToShow="API"
+            onClick={(entrySelected: Entry) => {
+              props.onObjectSelected(entrySelected)
+              if (inputRef?.current) inputRef.current.value = entrySelected.API
+              setShowList(false)
+            }}
+          />
+        )}
+    </div>
   )
 }

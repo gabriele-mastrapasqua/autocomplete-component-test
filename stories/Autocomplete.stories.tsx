@@ -1,6 +1,5 @@
-import React from 'react'
-import {ComponentStory, ComponentMeta} from '@storybook/react'
 import {Autocomplete} from '@/components/Autocomplete/Autocomplete'
+import {ComponentMeta, ComponentStory} from '@storybook/react'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,8 +12,14 @@ const Template: ComponentStory<typeof Autocomplete> = args => (
   <Autocomplete {...args} />
 )
 
-export const Disabled = Template.bind({})
-Disabled.args = {
+export const Enabled = Template.bind({})
+Enabled.args = {
   disabled: false,
   label: 'Search',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+  disabled: true,
+  label: 'Search disabled',
 }
