@@ -1,5 +1,5 @@
 
-export interface APIResult {
+export interface Entry {
     API: string;
     Description: string;
     Auth: string;

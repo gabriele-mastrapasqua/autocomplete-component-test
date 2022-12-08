@@ -26,5 +26,41 @@ Run
 yarn storybook
 ```
 
-to open a new browser tab with your Storybook.
+to open a new browser tab with your Storybook on http://localhost:6006/.
+
+## Unit tests
+
+Run 
+
+```
+yarn test
+```
+
+to run unit tests with jest.
+
+Run 
+
+```
+yarn test:coverage
+```
+
+To get a coverage report from jest.
+
+## e2e tests
+
+Run 
+
+```
+yarn cypress
+```
+
+to run e2e tests with cypress in interactive mode.
+
+To run headless run 
+
+```
+yarn cypress:headless
+```
+
+
 
