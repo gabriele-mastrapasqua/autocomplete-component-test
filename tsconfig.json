@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"], // enable @ for absolute imports
+      "@/*": ["./*"] // enable @ for absolute imports
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

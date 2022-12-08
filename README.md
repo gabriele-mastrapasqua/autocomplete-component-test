@@ -20,7 +20,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Storybook
 
-Run 
+Run
 
 ```
 yarn storybook
@@ -30,7 +30,7 @@ to open a new browser tab with your Storybook on http://localhost:6006/.
 
 ## Unit tests
 
-Run 
+Run
 
 ```
 yarn test
@@ -38,7 +38,7 @@ yarn test
 
 to run unit tests with jest.
 
-Run 
+Run
 
 ```
 yarn test:coverage
@@ -48,7 +48,7 @@ To get a coverage report from jest.
 
 ## e2e tests
 
-Run 
+Run
 
 ```
 yarn cypress
@@ -56,11 +56,8 @@ yarn cypress
 
 to run e2e tests with cypress in interactive mode.
 
-To run headless run 
+To run headless run
 
 ```
 yarn cypress:headless
 ```
-
-
-
