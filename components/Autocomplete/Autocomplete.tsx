@@ -30,6 +30,7 @@ export const Autocomplete = ({
 
       if (entries.length > 0) {
         props.onObjectSelected(entries[entryIndex])
+        if (inputRef.current) inputRef.current.value = entries[entryIndex].API
         setShowList(false)
       }
     }
@@ -106,9 +107,10 @@ export const Autocomplete = ({
             index={entryIndex}
             items={entries}
             keyToShow="API"
-            onClick={(entrySelected: Entry) => {
+            onClick={(entrySelected: Entry, index: number) => {
               props.onObjectSelected(entrySelected)
               if (inputRef?.current) inputRef.current.value = entrySelected.API
+              setEntryIndex(index)
               setShowList(false)
             }}
           />

@@ -4,7 +4,7 @@ interface Props {
   index: number
   items: any[]
   keyToShow: string
-  onClick: (objectSelected: any) => void
+  onClick: (objectSelected: any, index: number) => void
 }
 
 export const AutocompleteList = ({keyToShow = 'API', ...props}: Props) => {
@@ -18,13 +18,15 @@ export const AutocompleteList = ({keyToShow = 'API', ...props}: Props) => {
               (index === props.index ? 'list-item-highlight' : '') +
               ' list-item '
             }
-            onClick={() => props.onClick(item)}
+            onClick={() => props.onClick(item, index)}
           >
             {item[keyToShow]}
           </li>
         ))}
 
-        {props.items.length === 0 && <span>no elements found!</span>}
+        {props.items.length === 0 && (
+          <li className="list-item list-item-not-found">no elements found!</li>
+        )}
       </ul>
     </div>
   )
