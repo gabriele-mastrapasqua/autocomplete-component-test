@@ -47,7 +47,7 @@ To get a coverage report from jest.
 Run
 
 ```
-yarn cypress
+yarn e2e
 ```
 
 to run e2e tests with cypress in interactive mode.
@@ -55,5 +55,5 @@ to run e2e tests with cypress in interactive mode.
 To run headless run
 
 ```
-yarn cypress:headless
+yarn e2e:headless
 ```

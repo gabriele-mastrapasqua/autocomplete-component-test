@@ -68,7 +68,7 @@ export const Autocomplete = ({
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-cy="autocomplete-wrapper">
       <TextInput
         className={
           props.items.length === 0 && textValue != '' ? 'danger' : 'primary'

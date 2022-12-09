@@ -53,8 +53,8 @@ export default function Home() {
                 alignItems: 'flex-end',
               }}
             >
-              <h2>Entry selected</h2>
-              <p>
+              <h2 data-cy="result-title">Entry selected</h2>
+              <p data-cy="result-name">
                 <u>{entrySelected.API}</u>
               </p>
               <p className={styles.text}>

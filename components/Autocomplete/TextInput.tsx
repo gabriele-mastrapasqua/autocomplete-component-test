@@ -41,6 +41,7 @@ export const TextInput = ({
     <div className={[className, styles.inputWrapper].join(' ')}>
       {/** input text */}
       <input
+        data-cy="autocomplete-text-input"
         ref={inputRef}
         className={styles.input}
         id="search"

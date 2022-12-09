@@ -14,8 +14,8 @@
     "tdd": "jest --watch",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
-    "cypress": "cypress open",
-    "cypress:headless": "cypress run",
+    "e2e": "cypress open",
+    "e2e:headless": "cypress run",
     "format": "yarn prettier --write ."
   },
   "dependencies": {
