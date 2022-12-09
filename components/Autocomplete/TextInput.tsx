@@ -32,12 +32,7 @@ export const TextInput = ({
         // autofocus on input if loaded
         if (autofocus) inputElement.focus()
 
-        //inputElement.addEventListener("keydown", props.onKeyDown as any);
-        //inputElement.addEventListener("input", props.onInput as any);
-        return () => {
-          //inputElement.removeEventListener("keydown", props.onKeyDown as any);
-          //inputElement.removeEventListener("input", props.onInput as any);
-        }
+        return () => {}
       }
     }
   }, [])

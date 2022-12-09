@@ -33,7 +33,10 @@ export const EntriesSearch = ({
     props.onObjectSelected(object as Entry)
   }
 
-  // memo to memoize a throttled function that calls an API
+  //
+  // memo to memoize a throttled function that calls an API -
+  // NOTE: on storybook memo doesn't works!
+  //
   /*const searchEntries = useMemo(
     () => (request: {input: string}, callback: (responseData?: any) => void) => {
       EntriesService.debouncedSearch(request.input, (responseData: any) => {
