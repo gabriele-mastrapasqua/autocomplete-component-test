@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom'
+
 import {clone, mod} from './utils'
 
 describe('utils functions', () => {
