@@ -1,4 +1,4 @@
-.list-wrapper {
+.listWrapper {
   position: absolute;
   z-index: 123;
   width: 100%;
@@ -16,16 +16,17 @@
   margin: 0;
   padding: 0;
 }
-.list-item {
+
+.listItem {
   padding: 10px;
 }
-.list-item:hover {
+.listItem:hover {
   background-color: #eee;
 }
-.list-item-highlight {
+.listItemHighlight {
   background-color: #ddd;
 }
-.list-item-not-found {
+.listItemNotFound {
   color: black;
   text-decoration: underline;
 }

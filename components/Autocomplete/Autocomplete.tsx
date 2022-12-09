@@ -1,7 +1,7 @@
+import styles from '@/components/Autocomplete/Autocomplete.module.css'
 import {List} from '@/components/Autocomplete/List'
-import '@/components/Autocomplete/style.css'
 import {mod} from '@/lib/utils'
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {TextInput} from './TextInput'
 
 interface Props {
@@ -27,7 +27,7 @@ export const Autocomplete = ({
   }, [props.items])
 
   // handle key down
-  const onKeyDown = useCallback((event: any) => {
+  const onKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       event.preventDefault()
 
@@ -55,9 +55,9 @@ export const Autocomplete = ({
         setSelectedIndex(newIndex)
       }
     }
-  }, [])
+  }
 
-  const onInput = useCallback((event: any) => {
+  const onInput = (event: any) => {
     event.preventDefault()
     //console.log('*** on input ', event, event.target.value, props.onChange)
 
@@ -65,10 +65,10 @@ export const Autocomplete = ({
       setTextValue(event.target.value)
       props.onChange(event.target.value as string)
     }
-  }, [])
+  }
 
   return (
-    <div className="wrapper">
+    <div className={styles.wrapper}>
       <TextInput
         className={
           props.items.length === 0 && textValue != '' ? 'danger' : 'primary'

@@ -1,5 +1,5 @@
+import styles from '@/components/Autocomplete/List.module.css'
 import {ListItem} from '@/components/Autocomplete/ListItem'
-import '@/components/Autocomplete/style.list.css'
 
 interface Props {
   selectedIndex: number
@@ -10,15 +10,15 @@ interface Props {
 
 export const List = ({selectedIndex = 0, ...props}: Props) => {
   return (
-    <div className="list-wrapper">
-      <ul className="list">
+    <div className={styles.listWrapper}>
+      <ul className={styles.list}>
         {props.items.map((item, index) => (
           <ListItem
             key={index}
-            className={
-              (selectedIndex === index ? 'list-item-highlight' : '') +
-              ' list-item '
-            }
+            className={[
+              selectedIndex === index ? styles.listItemHighlight : '',
+              styles.listItem,
+            ].join(' ')}
             onClick={() => {
               props.onClick(item, index)
             }}
@@ -28,7 +28,9 @@ export const List = ({selectedIndex = 0, ...props}: Props) => {
         ))}
 
         {props.items.length === 0 && (
-          <ListItem className="list-item list-item-not-found">
+          <ListItem
+            className={[styles.listItem, styles.listItemNotFound].join(' ')}
+          >
             no elements found!
           </ListItem>
         )}

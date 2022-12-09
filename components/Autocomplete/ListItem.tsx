@@ -1,5 +1,3 @@
-import '@/components/Autocomplete/style.list.css'
-
 interface Props {
   className: string
   children: any

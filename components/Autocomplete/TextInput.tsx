@@ -1,4 +1,4 @@
-import '@/components/Autocomplete/style.input.css'
+import styles from '@/components/Autocomplete/TextInput.module.css'
 import {useEffect, useRef} from 'react'
 
 interface Props {
@@ -43,11 +43,11 @@ export const TextInput = ({
   }, [])
 
   return (
-    <div className={className + ' input-wrapper'}>
+    <div className={[className, styles.inputWrapper].join(' ')}>
       {/** input text */}
       <input
         ref={inputRef}
-        className="input"
+        className={styles.input}
         id="search"
         type="text"
         autoComplete="off"
@@ -59,7 +59,7 @@ export const TextInput = ({
       />
       <button
         disabled={disabled}
-        className="cancel-input-button"
+        className={styles.cancelInputButton}
         onClick={() => {
           if (inputRef?.current) {
             inputRef.current.value = ''
@@ -71,8 +71,8 @@ export const TextInput = ({
         X
       </button>
 
-      <fieldset aria-hidden="true" className="fieldset">
-        <legend className="legend">
+      <fieldset aria-hidden="true" className={styles.fieldset}>
+        <legend className={styles.legend}>
           <span>{label}</span>
         </legend>
       </fieldset>

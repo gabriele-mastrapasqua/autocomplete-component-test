@@ -1,4 +1,4 @@
-.input-wrapper {
+.inputWrapper {
   display: flex;
   width: 100%;
 }
@@ -45,7 +45,7 @@
   font-size: 14px;
 }
 
-.cancel-input-button {
+.cancelInputButton {
   position: relative;
   z-index: 123;
   left: -20px;
@@ -53,11 +53,4 @@
   background: transparent;
   border: 0;
   cursor: pointer;
-}
-
-.primary {
-  border-color: green;
-}
-.danger {
-  border-color: red;
 }

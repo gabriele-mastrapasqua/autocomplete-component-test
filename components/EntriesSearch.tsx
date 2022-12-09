@@ -1,12 +1,11 @@
 import {Autocomplete} from '@/components/Autocomplete/Autocomplete'
-import '@/components/Autocomplete/style.css'
 import {Entry} from '@/interfaces/Entry'
 import {EntriesService} from '@/lib/services/EntriesService'
 import {useState} from 'react'
 
 interface Props {
   label: string
-  disabled: boolean
+  disabled?: boolean
   onObjectSelected: (objectSelected: Entry) => void
 }
 
@@ -22,7 +21,9 @@ export const EntriesSearch = ({
     if (text !== '' && text.length >= 3) {
       searchEntries({input: text}, (responseData?: any) => {
         console.log('*** response from api', responseData)
-        setEntries(responseData.entries || []) // can be null on bad inputs
+        setEntries(
+          responseData && responseData.entries ? responseData.entries : [],
+        ) // can be null on bad inputs
       })
     }
   }
@@ -51,7 +52,7 @@ export const EntriesSearch = ({
   }
 
   return (
-    <div className="wrapper">
+    <div className="">
       <Autocomplete
         label={label}
         disabled={disabled}
