@@ -1,20 +1,20 @@
 import '@/components/Autocomplete/style.input.css'
-import {FormEvent, KeyboardEvent, useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 
 interface Props {
   label: string
-  className: 'primary' | 'danger'
+  className: string
   minLen: number
   disabled: boolean
   inputref?: any
   autofocus?: boolean
-  onKeyDown?: (event: KeyboardEvent) => void
-  onInput?: (event: FormEvent) => void
+  onKeyDown?: (event: any) => void
+  onInput?: (event: any) => void
   onClick?: (event: any) => void
-  onClear: () => void
+  onClear?: () => void
 }
 
-export const AutocompleteInput = ({
+export const TextInput = ({
   label = 'Search',
   className = 'primary',
   minLen = 3,
@@ -22,50 +22,49 @@ export const AutocompleteInput = ({
   disabled = false,
   ...props
 }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
   // mount
   useEffect(() => {
-    if (autofocus && props.inputref) {
-      const inputElement = props.inputref.current
+    if (inputRef) {
+      const inputElement = inputRef.current
       if (inputElement) {
         // autofocus on input if loaded
-        inputElement.focus()
+        if (autofocus) inputElement.focus()
 
-        //inputElement.addEventListener("keydown", handleKeyDown);
-        //inputElement.addEventListener("input", handleInput);
+        //inputElement.addEventListener("keydown", props.onKeyDown as any);
+        //inputElement.addEventListener("input", props.onInput as any);
         return () => {
-          //inputElement.removeEventListener("keydown", handleKeyDown);
-          //inputElement.removeEventListener("input", handleInput);
+          //inputElement.removeEventListener("keydown", props.onKeyDown as any);
+          //inputElement.removeEventListener("input", props.onInput as any);
         }
       }
     }
   }, [])
 
   return (
-    <>
+    <div className={className + ' input-wrapper'}>
       {/** input text */}
       <input
+        ref={inputRef}
         className="input"
-        ref={props.inputref}
         id="search"
         type="text"
         autoComplete="off"
         placeholder={`Input a minimum of ${minLen} characters to search...`}
         disabled={disabled}
-        {...props}
+        onKeyDown={props.onKeyDown}
+        onInput={props.onInput}
+        onClick={props.onClick}
       />
-      {/*props.inputRef &&
-        props.inputRef?.current &&
-        props.inputRef?.current?.value.length >= minLen &&
-        className === 'danger' && (
-          <span className="error-message">No results found!</span>
-        )*/}
       <button
         disabled={disabled}
         className="cancel-input-button"
         onClick={() => {
-          if (props.inputref?.current) {
-            props.inputref.current.value = ''
-            props.onClear()
+          if (inputRef?.current) {
+            inputRef.current.value = ''
+            inputRef.current.focus()
+            if (props.onClear) props.onClear()
           }
         }}
       >
@@ -77,6 +76,6 @@ export const AutocompleteInput = ({
           <span>{label}</span>
         </legend>
       </fieldset>
-    </>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
+import config from '@/lib/config'
 import {debounce} from '@/lib/utils'
 import axios from 'axios'
-import config from '@/lib/config'
 
 const DEBOUNCE_TIMEOUT = 500
 

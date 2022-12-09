@@ -1,36 +1,36 @@
-import {AutocompleteInput} from '@/components/Autocomplete/AutocompleteInput'
+import {TextInput} from '@/components/Autocomplete/TextInput'
 import {ComponentMeta, ComponentStory} from '@storybook/react'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Example/AutocompleteInput',
-  component: AutocompleteInput,
-} as ComponentMeta<typeof AutocompleteInput>
+  component: TextInput,
+} as ComponentMeta<typeof TextInput>
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof AutocompleteInput> = args => (
-  <AutocompleteInput {...args} />
+const Template: ComponentStory<typeof TextInput> = args => (
+  <TextInput {...args} />
 )
 
 export const Primary = Template.bind({})
 Primary.args = {
   disabled: false,
   label: 'Search',
-  className: 'primary',
   minLen: 3,
   autofocus: true,
+  onClear: () => {},
 }
 export const Danger = Template.bind({})
 Danger.args = {
   disabled: false,
   label: 'Error',
-  className: 'danger',
   minLen: 3,
+  onClear: () => {},
 }
 
 export const Disabled = Template.bind({})
 Disabled.args = {
   disabled: true,
   label: 'Search',
-  className: 'primary',
+  onClear: () => {},
 }

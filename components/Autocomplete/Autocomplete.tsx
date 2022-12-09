@@ -1,15 +1,16 @@
+import {List} from '@/components/Autocomplete/List'
 import '@/components/Autocomplete/style.css'
-import {Entry} from '@/interfaces/Entry'
-import {EntriesService} from '@/lib/services/EntriesService'
 import {mod} from '@/lib/utils'
-import {FormEvent, KeyboardEvent, useRef, useState} from 'react'
-import {AutocompleteInput} from './AutocompleteInput'
-import {AutocompleteList} from './AutocompleteList'
+import {useEffect, useState} from 'react'
+import {TextInput} from './TextInput'
 
 interface Props {
   label: string
   disabled: boolean
-  onObjectSelected: (objectSelected: Entry) => void
+  renderItem: any
+  items: any[]
+  onChange: (text: string) => void
+  onSelect: (objectSelected: any) => void
 }
 
 export const Autocomplete = ({
@@ -17,20 +18,22 @@ export const Autocomplete = ({
   disabled = false,
   ...props
 }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const [entries, setEntries] = useState<Entry[]>([])
-  const [entryIndex, setEntryIndex] = useState<number>(0)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [showList, setShowList] = useState<boolean>(false)
+  const [textValue, setTextValue] = useState<string>('')
 
-  // handle key down on input
-  const onKeyDown = (event: KeyboardEvent) => {
+  useEffect(() => {
+    if (props.items && props.items.length > 0) setShowList(true)
+  }, [props.items])
+
+  // handle key down
+  const onKeyDown = (event: any) => {
     if (event.key === 'Enter') {
       event.preventDefault()
 
-      if (entries.length > 0) {
-        props.onObjectSelected(entries[entryIndex])
-        if (inputRef.current) inputRef.current.value = entries[entryIndex].API
+      if (props.items.length > 0) {
+        props.onSelect(props.items[selectedIndex])
+        //if (inputRef.current) inputRef.current.value = entries[entryIndex].API
         setShowList(false)
       }
     }
@@ -38,49 +41,37 @@ export const Autocomplete = ({
     else if (event.key === 'ArrowDown') {
       event.preventDefault()
 
-      if (entries.length > 0) {
-        const newIndex = mod(entryIndex + 1, entries.length)
-        setEntryIndex(newIndex)
+      if (props.items.length > 0) {
+        const newIndex = mod(selectedIndex + 1, props.items.length)
+        setSelectedIndex(newIndex)
       }
     }
     // handle arrow up for entry selection
     else if (event.key === 'ArrowUp') {
       event.preventDefault()
 
-      if (entries.length > 0) {
-        const newIndex = mod(entryIndex - 1, entries.length)
-        setEntryIndex(newIndex)
+      if (props.items.length > 0) {
+        const newIndex = mod(selectedIndex - 1, props.items.length)
+        setSelectedIndex(newIndex)
       }
     }
   }
 
-  const onInput = (event: FormEvent) => {
+  const onInput = (event: any) => {
     event.preventDefault()
+    //console.log('*** on input ', event, event.target.value, props.onChange)
 
-    if (inputRef?.current?.value && inputRef?.current?.value.length >= 3) {
-      EntriesService.debouncedSearch(
-        inputRef?.current?.value,
-        (responseData: any) => {
-          console.log('*** response from api', responseData)
-          setShowList(true)
-          setEntries(responseData.entries || []) // can be null on bad inputs
-          if (responseData.entries && responseData.entries.length > 0) {
-            setEntryIndex(0)
-          }
-        },
-      )
+    if (event?.target?.value) {
+      setTextValue(event.target.value)
+      props.onChange(event.target.value as string)
     }
   }
 
   return (
     <div className="wrapper">
-      {/** input text */}
-      <AutocompleteInput
-        inputref={inputRef}
+      <TextInput
         className={
-          entries.length === 0 && inputRef.current?.value != ''
-            ? 'danger'
-            : 'primary'
+          props.items.length === 0 && textValue != '' ? 'danger' : 'primary'
         }
         label={label}
         disabled={disabled}
@@ -90,31 +81,26 @@ export const Autocomplete = ({
         onInput={onInput}
         onClick={() => {
           setShowList(true)
-          inputRef?.current?.focus()
         }}
         onClear={() => {
+          setTextValue('')
           setShowList(false)
-          inputRef?.current?.focus()
         }}
       />
 
-      {/** list results */}
-      {inputRef &&
-        inputRef.current &&
-        inputRef.current.value !== '' &&
-        showList && (
-          <AutocompleteList
-            index={entryIndex}
-            items={entries}
-            keyToShow="API"
-            onClick={(entrySelected: Entry, index: number) => {
-              props.onObjectSelected(entrySelected)
-              if (inputRef?.current) inputRef.current.value = entrySelected.API
-              setEntryIndex(index)
-              setShowList(false)
-            }}
-          />
-        )}
+      {textValue !== '' && showList && (
+        <List
+          items={props.items}
+          renderItem={props.renderItem}
+          selectedIndex={selectedIndex}
+          onClick={(entrySelected: any, index: number) => {
+            props.onSelect(entrySelected)
+            //if (inputRef?.current) inputRef.current.value = entrySelected.API
+            setSelectedIndex(index)
+            setShowList(false)
+          }}
+        />
+      )}
     </div>
   )
 }

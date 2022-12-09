@@ -1,8 +1,12 @@
+.input-wrapper {
+  display: flex;
+  width: 100%;
+}
 .input {
   padding: 7.5px 4px 7.5px 6px;
   width: 100%;
   border: 0px;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 5px;
   font-size: 20px;
@@ -30,19 +34,30 @@
   width: auto;
   display: block;
   padding: 0;
-  height: 11px;
+  height: 8px;
   font-size: 0.75em;
   max-width: 100%;
   white-space: nowrap;
   color: black;
+  bottom: 8px;
+  position: relative;
+  background-color: white;
+  font-size: 14px;
 }
 
 .cancel-input-button {
   position: relative;
   z-index: 123;
   left: -20px;
-  top: 5px;
+  top: 0px;
   background: transparent;
   border: 0;
   cursor: pointer;
+}
+
+.primary {
+  border-color: green;
+}
+.danger {
+  background-color: red;
 }
