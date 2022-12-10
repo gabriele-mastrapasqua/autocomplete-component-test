@@ -60,6 +60,13 @@ describe('search autocomplete app', () => {
         .should('have.text', 'no elements found!')
     })
   })
+
+  it('it should not trigger autocomplete on 2 chars', () => {
+    cy.get('[data-cy="autocomplete-text-input"]').click()
+    cy.get('[data-cy="autocomplete-text-input"]').type('ab')
+
+    cy.get('[data-cy="autocomplete-items-list"] li').should('have.length', 1)
+  })
 })
 
 export {}
