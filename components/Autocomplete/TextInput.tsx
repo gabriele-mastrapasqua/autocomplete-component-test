@@ -6,7 +6,6 @@ interface Props {
   className: string
   minLen: number
   disabled: boolean
-  inputref?: any
   autofocus?: boolean
   onKeyDown?: (event: any) => void
   onInput?: (event: any) => void
@@ -42,6 +41,7 @@ export const TextInput = ({
       {/** input text */}
       <input
         data-cy="autocomplete-text-input"
+        data-testid="autocomplete-text-input"
         ref={inputRef}
         className={styles.input}
         id="search"

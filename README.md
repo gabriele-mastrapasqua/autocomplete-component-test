@@ -23,6 +23,12 @@ I have used another parent component 'EntriesSearch' to segregate the 'business 
 
 EntriesSearch is the specialized component that solve the business logic requirements, the other components are UI components and more 'pure'.
 
+The business logic rules are:
+
+- min 3 chars to start a search on API
+- non case sensitive text
+- API search on https://api.publicapis.org/entries?title=<input>
+
 ## Styling
 
 To make thinghs simple I have used CSS modules, that are already available on nextjs, without installing additional css processors like sass.

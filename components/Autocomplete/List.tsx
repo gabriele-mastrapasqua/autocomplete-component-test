@@ -1,5 +1,5 @@
-import styles from '@/components/Autocomplete/List.module.css'
-import {ListItem} from '@/components/Autocomplete/ListItem'
+import styles from './List.module.css'
+import {ListItem} from './ListItem'
 
 interface Props {
   selectedIndex: number
@@ -11,7 +11,11 @@ interface Props {
 export const List = ({selectedIndex = 0, ...props}: Props) => {
   return (
     <div className={styles.listWrapper}>
-      <ul className={styles.list} data-cy="autocomplete-items-list">
+      <ul
+        className={styles.list}
+        data-cy="autocomplete-items-list"
+        data-testid="autocomplete-items-list"
+      >
         {props.items.map((item, index) => (
           <ListItem
             key={index}
